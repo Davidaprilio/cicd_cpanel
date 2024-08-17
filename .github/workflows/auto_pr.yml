@@ -26,14 +26,13 @@ jobs:
         title: Sync update
         body: Sync update to main_sync
         base: main
+        branch: main_sync
         labels: |
           automated-pr
           production
-        branch: main_sync
         assignees: Davidaprilio
         reviewers: Davidaprilio
-        milestone: 1
-        draft: false
+        draft: true
 
     - name: Check outputs
       if: ${{ steps.cpr.outputs.pull-request-number }}
