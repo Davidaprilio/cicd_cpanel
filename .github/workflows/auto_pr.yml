@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v4
+        with:
+          ref: development
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -19,4 +21,4 @@ jobs:
           body: Cloud - Update available list
           base: main
           labels: automated-pr
-          branch: develop
+          branch: development
