@@ -26,12 +26,11 @@ jobs:
         title: Sync update
         body: Sync update to main_sync
         base: main
-        branch: main_sync
+        branch: main_sync2
         labels: |
           automated-pr
           production
-        assignees: Davidaprilio
-        reviewers: Davidaprilio
+        assignees: ${{ github.actor }}
         draft: true
 
     - name: Check outputs
