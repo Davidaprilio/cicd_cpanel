@@ -1,0 +1,16 @@
+name: deploy
+
+on:
+  push:
+    branches: [ "main_sync" ]
+  pull_request:
+    branches: [ "main_sync" ]
+
+jobs:
+  sync-prod-branches:
+    name: 🎉 Deploy to Production
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
