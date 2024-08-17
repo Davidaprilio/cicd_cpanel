@@ -15,15 +15,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Create Pull Request for prod-
+    - name: Create Pull Request
+      id: cpr
       uses: peter-evans/create-pull-request@v4
       with:
         title: Sync update
         commit-message: Sync update to main_sync
         body: Sync update to main_sync
         base: main
-        labels: automated-pr, production
+        labels: |
+          automated-pr
+          production
         branch: main_sync
+        committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+        signoff: false
+
     - name: Check outputs
       if: ${{ steps.cpr.outputs.pull-request-number }}
       run: |
