@@ -1,0 +1,26 @@
+name: Global deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  sync-prod-branches:
+    name: 🎉 Deploy to all Production
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Create Pull Request for prod-
+      uses: peter-evans/create-pull-request@v4
+      with:
+        title: Sync update
+        commit-message: Sync update to main_sync
+        body: Sync update to main_sync
+        base: main
+        labels: automated-pr, production
+        branch: main_sync
