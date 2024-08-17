@@ -17,10 +17,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: main_sync2
-          assignees: ${{ github.actor }}
-          labels: |
-            automated-pr
-            production
+          branch: main_sync
           title: 'Auto PR from main to prod'
           
