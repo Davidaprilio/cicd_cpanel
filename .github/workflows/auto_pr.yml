@@ -3,37 +3,23 @@ name: Global deploy
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   sync-prod-branches:
-    name: 🎉 Deploy to all Production
+    name: 🎉 AUTO Open PR
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Create Pull Request
-      id: cpr
-      uses: peter-evans/create-pull-request@v6
-      with:
-        commit-message: Sync update to main_sync
-        committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-        signoff: false
-        title: Sync update
-        body: Sync update to main_sync
-        base: main
-        branch: main_sync
-        labels: |
-          automated-pr
-          production
-        assignees: ${{ github.actor }}
-        draft: true
-
-    - name: Check outputs
-      run: |
-        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+      - name: Open PR
+        id: open_pr
+        uses: rematocorp/open-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          from-branch: main
+          to-branch: main_sync
+          repository-owner: Davidaprilio
+          repository: cicd_cpanel
+          
+      - name: Echo mergeable PR number
+        run: echo ${{ steps.open_pr.outputs.pull_number }}
+          
