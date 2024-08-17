@@ -2,7 +2,7 @@ name: Global deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main_sync" ]
 
 jobs:
   sync-prod-branches:
@@ -16,7 +16,6 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          base: main
-          branch: main_sync
+          branch: main
           title: 'Auto PR from main to prod'
           
