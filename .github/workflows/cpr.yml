@@ -7,8 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: 
-          ref: main
+
+      - name: Set Branch Name  # Create a variable to save current branch, cause my trigger branch is feature/**
+        run: echo "branch-name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV  
+
+      - name: Checkout Repository  # Checkout to prod ( Base branch that need to be syncronized )
+        uses: actions/checkout@v4
+        with:
+          ref: prod
+
+      - name: Reset feature branch  # This is what solve the problem, instead of reseting the base branch (Dev) you need to reset tha target branch feature/something
+        run: |
+          git fetch origin ${{ env.branch-name }}:${{ env.branch-name }}
+          git reset --hard ${{ env.branch-name }}
 
       - name: Create Pull Request
         id: cpr
