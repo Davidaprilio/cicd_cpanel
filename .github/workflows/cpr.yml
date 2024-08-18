@@ -7,9 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Make changes to pull request
-        run: date +%s > report.txt
+        with: 
+          ref: main
 
       - name: Create Pull Request
         id: cpr
